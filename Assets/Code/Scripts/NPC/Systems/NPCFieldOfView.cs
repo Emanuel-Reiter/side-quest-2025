@@ -42,6 +42,8 @@ public class NPCFieldOfView : MonoBehaviour
             bool isPlayer = targetInViewRadius.gameObject.CompareTag("Player");
             if (!isPlayer) continue;
 
+            Debug.Log("Player found!");
+
             Transform target = targetInViewRadius.transform;
             Vector3 directionToTarget = (target.position - transform.position).normalized;
 
