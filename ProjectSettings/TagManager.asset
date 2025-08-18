@@ -7,6 +7,8 @@ TagManager:
   - NPC
   - Lamp
   - Key
+  - Door
+  - Generator
   layers:
   - Default
   - TransparentFX

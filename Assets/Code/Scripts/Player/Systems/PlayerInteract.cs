@@ -49,7 +49,7 @@ public class PlayerInteract : MonoBehaviour
 
                 switch (key.key_ID)
                 {
-                    case 1: playerKeys.key_01 = true; _dialogueController.PlayDialogue(); break;
+                    case 1: playerKeys.key_01 = true; _dialogueController.PlayDialogue(1); break;
                     case 2: playerKeys.key_02 = true; break;
                     case 3: playerKeys.key_03 = true; break;
                     case 4: playerKeys.key_04 = true; break;
@@ -58,6 +58,16 @@ public class PlayerInteract : MonoBehaviour
 
                 PlayerKeySound();
                 key.gameObject.SetActive(false);
+            }
+
+            if (hit.collider.gameObject.CompareTag("Door"))
+            {
+                playerKeys.generatorsOn++;
+            }
+
+            if (hit.collider.gameObject.CompareTag("Generator"))
+            {
+                playerKeys.generatorsOn++;
             }
         }
        

@@ -9,29 +9,28 @@ public class DialogueController : MonoBehaviour
     public AudioClip securityGuard_audio;
     public AudioClip powerOn_audio;
 
-    private int dialogueIndex = 0;
 
     public GameObject enemy_01;
     private LampsController lampsController;
     public AudioSource musicSource;
 
+    private PlayerKeys playerKeys;
 
     private void Start()
     {
         lampsController = GetComponent<LampsController>();
+        playerKeys = GetComponent<PlayerKeys>();
         enemy_01.SetActive(false);
-}
+    }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P)) { 
-            PlayDialogue();
-        }
+        if (playerKeys.generatorsOn == 3) PlayDialogue(3);
     }
 
-    public void PlayDialogue()
+    public void PlayDialogue(int index)
     {
-        switch (dialogueIndex)
+        switch (index)
         {
             case 0:
                 dialogueSource.clip = welcome_audio;
@@ -58,6 +57,5 @@ public class DialogueController : MonoBehaviour
 
         }
         dialogueSource.Play();
-        dialogueIndex++;
     }
 }

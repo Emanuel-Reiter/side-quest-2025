@@ -8,7 +8,7 @@ public class WelcomeDialogueTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            dialogueController.PlayDialogue();
+            dialogueController.PlayDialogue(0);
             this.gameObject.SetActive(false);
         }
     }

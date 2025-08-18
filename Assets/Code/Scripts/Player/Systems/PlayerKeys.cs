@@ -7,6 +7,6 @@ public class PlayerKeys : MonoBehaviour
     public bool key_03 = false;
     public bool key_04 = false;
 
-
+    public int generatorsOn = 0;
 
 }
