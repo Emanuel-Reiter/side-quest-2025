@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class DialogueController : MonoBehaviour
@@ -16,16 +17,30 @@ public class DialogueController : MonoBehaviour
 
     private PlayerKeys playerKeys;
 
+    public Collider[] generatorColliders;
+    public GameObject generatorText;
+
+    private bool isDialogueTimer = false;
+    private float dialogueTimer_03 = 19.0f;
     private void Start()
     {
         lampsController = GetComponent<LampsController>();
         playerKeys = GetComponent<PlayerKeys>();
         enemy_01.SetActive(false);
+
+        foreach (var collider in generatorColliders)
+        {
+            collider.enabled = false;
+        }
+
+        generatorText.SetActive(false);
     }
 
     private void Update()
     {
         if (playerKeys.generatorsOn == 3) PlayDialogue(3);
+        if (isDialogueTimer) dialogueTimer_03 -= Time.deltaTime;
+        if (isDialogueTimer && dialogueTimer_03 < 0.0f) PlayDialogue(2);
     }
 
     public void PlayDialogue(int index)
@@ -40,11 +55,20 @@ public class DialogueController : MonoBehaviour
                 dialogueSource.clip = powerOff_audio;
                 enemy_01.SetActive(true);
                 lampsController.ToggleAllLamps(false);
+
+                foreach (var collider in generatorColliders)
+                {
+                    collider.enabled = true;
+                }
+
+                generatorText.SetActive(true);
+                isDialogueTimer = true;
                 musicSource.Play();
                 break;
 
             case 2:
                 dialogueSource.clip = securityGuard_audio;
+                isDialogueTimer = false;
                 break;
 
             case 3:

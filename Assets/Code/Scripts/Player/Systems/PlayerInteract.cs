@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerInteract : MonoBehaviour
 {
@@ -58,16 +59,30 @@ public class PlayerInteract : MonoBehaviour
 
                 PlayerKeySound();
                 key.gameObject.SetActive(false);
+                return;
             }
 
             if (hit.collider.gameObject.CompareTag("Door"))
             {
-                playerKeys.generatorsOn++;
+                Door door = hit.collider.gameObject.GetComponent<Door>();
+
+                if (playerKeys.key_01 && door.door_ID == 1) door.Open();
+                if (playerKeys.key_02 && door.door_ID == 2) door.Open();
+                if (playerKeys.key_03 && door.door_ID == 3) door.Open();
+                if (playerKeys.key_04 && door.door_ID == 4) SceneManager.LoadScene("Level_01_Ending_Scene");
+
+                hit.collider.gameObject.GetComponent<Collider>().enabled = true;
+                return;
             }
 
             if (hit.collider.gameObject.CompareTag("Generator"))
             {
-                playerKeys.generatorsOn++;
+                playerKeys.TurnOnGenerator();
+                Collider collider = hit.collider.gameObject.GetComponent<Collider>();
+                GeneratorSound sound = hit.collider.gameObject.GetComponent<GeneratorSound>();
+                sound.TurnOn();
+                collider.enabled = false;
+                return;
             }
         }
        
